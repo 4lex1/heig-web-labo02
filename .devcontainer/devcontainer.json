@@ -1,10 +1,27 @@
 {
-	"name": "PHP",
-	"image": "mcr.microsoft.com/devcontainers/php:1-8.2-bullseye",
+	"name": "EKF Warriors",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
 	"forwardPorts": [
 		8080
 	],
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
-	}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.copilot",
+				"ms-azuretools.vscode-docker",
+				"DEVSENSE.phptools-vscode"
+			]
+		}
+	},
+  // Map the user's SSH directory to the container for SSH signing
+  "mounts": [
+    "type=bind,source=${localEnv:HOME}/.ssh,target=${localEnv:HOME}/.ssh,type=bind,consistency=cached"
+  ]
+
 }
