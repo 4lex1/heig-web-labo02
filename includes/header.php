@@ -13,4 +13,5 @@ include_once 'repository.php';
     <link href="/css/site.css" rel="stylesheet">
   </head>
   <body>
-<div class="container mt-4 text-light">
+<div class="container text-light">
+  <?php include 'navbar.php';?>

@@ -23,4 +23,43 @@ function getAllWarriors() {
     $result = $pdo->query($query);
     return $result->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function deleteWarrior($id) {
+    $pdo = getPDO();
+
+    $query = "DELETE FROM warriors WHERE id = :id";
+
+    $statement = $pdo->prepare($query);
+    $statement->bindParam(':id', $id, PDO::PARAM_INT);
+    $statement->execute();
+}
+
+function resetAll() {
+    $pdo = getPDO();
+    $query = "DROP TABLE IF EXISTS warriors";
+    $statement = $pdo->prepare($query);
+    $statement->execute();
+}
+
+function createWarrior($first_name, $last_name, $grade, $description, $image_link) {
+    try {
+        $pdo = getPDO();
+
+        $query = "INSERT INTO warriors (first_name, last_name, grade, description, image_link) VALUES (:first_name, :last_name, :grade, :description, :image_link)";
+        $statement = $pdo->prepare($query);
+
+        $statement->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+        $statement->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+        $statement->bindParam(':grade', $grade, PDO::PARAM_STR);
+        $statement->bindParam(':description', $description, PDO::PARAM_STR);
+        $statement->bindParam(':image_link', $image_link, PDO::PARAM_STR);
+
+        $statement->execute();
+        return true;
+
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
 ?>
