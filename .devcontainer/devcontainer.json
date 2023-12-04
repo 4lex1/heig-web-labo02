@@ -3,7 +3,6 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-
 	"forwardPorts": [
 		8080
 	],
@@ -23,5 +22,4 @@
   "mounts": [
     "type=bind,source=${localEnv:HOME}/.ssh,target=${localEnv:HOME}/.ssh,type=bind,consistency=cached"
   ]
-
 }
