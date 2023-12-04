@@ -62,4 +62,34 @@ function createWarrior($first_name, $last_name, $grade, $description, $image_lin
     }
 }
 
+function getWarriorById($id) {
+    $pdo = getPDO();
+    $query = "SELECT * FROM warriors WHERE id = :id";
+    $statement = $pdo->prepare($query);
+    $statement->bindParam(':id', $id, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetch(PDO::FETCH_ASSOC);
+}
+
+function updateWarrior($id, $first_name, $last_name, $grade, $description) {
+    try {
+        $pdo = getPDO();
+
+        $query = "UPDATE warriors SET first_name = :first_name, last_name = :last_name, grade = :grade, description = :description WHERE id = :id";
+        $statement = $pdo->prepare($query);
+
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+        $statement->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+        $statement->bindParam(':grade', $grade, PDO::PARAM_STR);
+        $statement->bindParam(':description', $description, PDO::PARAM_STR);
+
+        $statement->execute();
+        return true;
+
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
 ?>
